@@ -2,6 +2,8 @@
 
 ##This will be a python script that creates a command line journal
 
+from datetime import datetime
+
 the_date = []
 the_entry = []
 create_option = ["C", "c"]
@@ -10,16 +12,14 @@ exit_option = ["X", "x"]
 
 def create_entry():
     '''Gets inputs from user, appends it to a text file and reloads the menu'''
-    get_date = input("What is today's date (mm-dd-yy): ")
-    the_date.append(get_date)
-    dizzy = ''.join(the_date)
+    get_date = datetime.now()
 
     get_entry = input("What's on your mind?: ")
     the_entry.append(get_entry)
     entry = ''.join(the_entry)
 
     with open('Journal.txt', 'a') as journal:
-        print(dizzy, entry, file=journal)
+        print(get_date.strftime("%x"), entry, file=journal)
     menu()
 
 def menu():
