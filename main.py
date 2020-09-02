@@ -10,10 +10,11 @@ create_option = ["C", "c"]
 open_option = ["O", "o"]
 exit_option = ["X", "x"]
 
+get_date = datetime.now()
+
 def create_entry():
     '''Gets inputs from user, appends it to a text file and reloads the menu'''
-    get_date = datetime.now()
-
+    global get_date
     get_entry = input("What's on your mind?: ")
     the_entry.append(get_entry)
     entry = ''.join(the_entry)
@@ -22,14 +23,20 @@ def create_entry():
         print(get_date.strftime("%x"), entry, file=journal)
     menu()
 
+def open_journal():
+    with open('Journal.txt') as open_journal:
+        for j_entry in open_journal:
+            print(j_entry)
+    menu()
+
 def menu():
+    global get_date
+    print("Hello, Today is ", get_date.strftime("%x"), ".")
     menu = input("To create a new journal entry type 'C', To open your journal type 'O', to exit type 'X': ")
     if menu in create_option:
         create_entry()
     elif menu in open_option:
-        with open('Journal.txt') as open_journal:
-            for j_entry in open_journal:
-                print(j_entry)
+        open_journal()
     elif menu in exit_option:
         exit
     else:
